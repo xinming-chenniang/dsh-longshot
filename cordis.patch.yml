@@ -1,0 +1,6 @@
+# dsh-longshot：拖入超长截图时自动切成多张
+#
+# insert 行的 id / name **必须都等于包名**，否则静默装载不上。
+- insert:
+    - id: dsh-longshot
+      name: 'dsh-longshot'

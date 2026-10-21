@@ -1,0 +1,6 @@
+# 统一行尾，避免 Windows 端把 CRLF 写进仓库
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary

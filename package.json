@@ -1,0 +1,51 @@
+{
+  "name": "dsh-longshot",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Auto-split over-long screenshots into DSH-acceptable slices before prompt admission",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xinming-chenniang/dsh-longshot.git"
+  },
+  "homepage": "https://github.com/xinming-chenniang/dsh-longshot#readme",
+  "bugs": {
+    "url": "https://github.com/xinming-chenniang/dsh-longshot/issues"
+  },
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "engines": {
+      "dsh": ">=0.2.0-rc.2"
+    },
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "jpeg-js": "^0.4.4",
+    "pngjs": "^7.0.0"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "attachment",
+    "screenshot"
+  ]
+}
