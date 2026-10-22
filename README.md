@@ -148,7 +148,7 @@ pnpm install          # 只装 jpeg-js + pngjs，纯 JS，无编译
 ## 测试
 
 ```sh
-node --test test/*.test.mjs
+node --test          # 不带 glob：Windows 的 shell 不展开 test/*.test.mjs
 ```
 
 28 条，覆盖：切片几何（含 `1080×20000` / `1280×12719` 回归基线）、真实 JPEG 端到端、
