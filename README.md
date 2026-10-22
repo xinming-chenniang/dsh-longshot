@@ -129,6 +129,13 @@ pnpm install          # 只装 jpeg-js + pngjs，纯 JS，无编译
 > 对比基于 `dsh-image-tiler` 0.1.6（2026-10-10 发布）的 npm 包源码与 README，2026-10-22 核对。
 > 未在本机实际安装运行过它，对方的行为描述来自其代码与自述，不是我的实测。
 
+## 兼容性
+
+| DSH 版本 | 结果 |
+|---|---|
+| `0.2.1-rc.2` | 已测：host entry active；`node --test` 28/28；未在其它版本真机拖图 |
+| 其他版本 | 未测；`package.json` 只声明 `engines.dsh >= 0.2.0-rc.2` |
+
 ## 已知限制
 
 - **WebP / GIF 不切**：这两个格式没有纯 JS 解码器，命中时原样透传（报 DSH 原生错误）。
