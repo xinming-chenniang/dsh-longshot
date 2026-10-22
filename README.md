@@ -46,6 +46,16 @@ DSH 的图片准入（`@deepseek-ai/dsh-attachment-local`）有三条硬限制�
 
 ## 安装
 
+### 方式一：GitHub 源（推荐）
+
+```sh
+dsh plugin add github:xinming-chenniang/dsh-longshot
+```
+
+或从 Release 资产 `dsh-longshot-0.1.0.tgz` 安装。npm 上未发布（`private:true`）。
+
+### 方式二：本地源码（开发）
+
 ```sh
 cd dsh-longshot
 pnpm install          # 只装 jpeg-js + pngjs，纯 JS，无编译
