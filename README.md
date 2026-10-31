@@ -68,7 +68,7 @@ dsh plugin add dsh-longshot
 dsh plugin add github:xinming-chenniang/dsh-longshot
 ```
 
-适合从源码装或固定到某个提交。Release 资产 `dsh-longshot-0.1.0.tgz` 也可以同样方式安装。
+适合从源码装或固定到某个提交。Release 资产 `dsh-longshot-0.1.1.tgz` 也可以同样方式安装。
 
 ### 方式三：本地源码（开发）
 

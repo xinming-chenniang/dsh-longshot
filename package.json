@@ -1,6 +1,6 @@
 {
   "name": "dsh-longshot",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Auto-split over-long screenshots into DSH-acceptable slices before prompt admission",
   "license": "MIT",
   "repository": {
