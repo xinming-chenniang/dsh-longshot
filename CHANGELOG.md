@@ -8,4 +8,6 @@
 - 纯 JS 依赖（`jpeg-js` + `pngjs`），无原生编译；不依赖 sharp。
 - 展开失败降级为原图透传，不阻断发送；配置非法值回落到默认。
 - 验证：`node --test` 28 / 28，含真实长图端到端与 Cordis traceable proxy 语义模拟。
+- 测试夹具自包含：`test-fixtures/longshot.mjs` 首次运行时生成 1280×12719 长图，
+  不再依赖作者本机截图路径，CI 与别人的机器上 28 条全跑（不再 skip）。
 - 已知限制：仅 JPEG/PNG；宽超过 8192 的图不切；单条消息最多 18 片。

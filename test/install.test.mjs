@@ -1,10 +1,9 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { readFileSync, existsSync } from 'node:fs'
 import { apply, normalizeConfig, name as pluginName, inject } from '../lib/index.js'
+import { sampleLongJpegBase64 } from '../test-fixtures/longshot.mjs'
 
-const SAMPLE = 'sample-1280x12719.jpg'
-const sampleB64 = existsSync(SAMPLE) ? readFileSync(SAMPLE).toString('base64') : null
+const sampleB64 = sampleLongJpegBase64()
 
 /** 忠实模拟 Cordis Service：方法在原型上，实例状态在实例上。 */
 class FakeAttachmentStore {
@@ -74,7 +73,7 @@ test('打在原型上而不是 proxy 上：赋值不走 Cordis 的 set trap', ()
   ctx.disposeAll()
 })
 
-test('超长图经 proxy 调用后被切成 4 张进入准入', { skip: !existsSync(SAMPLE) }, async () => {
+test('超长图经 proxy 调用后被切成 4 张进入准入', async () => {
   const store = new FakeAttachmentStore()
   const ctx = fakeCtx(store)
   apply(ctx, {})
@@ -100,7 +99,7 @@ test('合规图在不切的情况下照常通过（不改变个数）', async ()
   ctx.disposeAll()
 })
 
-test('dispose 后原方法恢复，行为回到未安装', { skip: !existsSync(SAMPLE) }, async () => {
+test('dispose 后原方法恢复，行为回到未安装', async () => {
   const store = new FakeAttachmentStore()
   const ctx = fakeCtx(store)
   apply(ctx, {})

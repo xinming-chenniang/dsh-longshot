@@ -1,12 +1,11 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { existsSync, readFileSync } from 'node:fs'
 import { PNG } from 'pngjs'
 import { expandContent } from '../lib/expand.js'
 import { probe } from '../lib/codec.js'
+import { sampleLongJpegBase64 } from '../test-fixtures/longshot.mjs'
 
-const SAMPLE = 'sample-1280x12719.jpg'
-const sampleB64 = existsSync(SAMPLE) ? readFileSync(SAMPLE).toString('base64') : null
+const sampleB64 = sampleLongJpegBase64()
 
 /** 收集日志，方便断言"为什么没切"。 */
 function collector() {
@@ -20,7 +19,7 @@ function tinyPng(width = 200, height = 120) {
   return PNG.sync.write({ width, height, data }, { colorType: 6, deflateLevel: 1 })
 }
 
-test('真实长截图：1 张变 4 张，命名与顺序正确', { skip: !existsSync(SAMPLE) }, async () => {
+test('真实长截图：1 张变 4 张，命名与顺序正确', async () => {
   const { events, log } = collector()
   const content = [{ type: 'text', text: '看这张账单' }, { type: 'image', mediaType: 'image/jpeg', data: sampleB64, name: '账单.jpg' }]
   const out = await expandContent(content, {}, log)
@@ -54,7 +53,7 @@ test('合规小图原样透传（对象引用都不变，零解码）', async ()
   assert.equal(events.length, 0)
 })
 
-test('图文混排时切片插在原位，文本顺序不变', { skip: !existsSync(SAMPLE) }, async () => {
+test('图文混排时切片插在原位，文本顺序不变', async () => {
   const content = [
     { type: 'text', text: '前' },
     { type: 'image', mediaType: 'image/jpeg', data: sampleB64, name: 'a.jpg' },
@@ -81,7 +80,7 @@ test('缺 data 的 part 原样透传', async () => {
   assert.equal(out[0], part)
 })
 
-test('张数护栏：消息里已有 18 张时不切，避免超过 20 张上限', { skip: !existsSync(SAMPLE) }, async () => {
+test('张数护栏：消息里已有 18 张时不切，避免超过 20 张上限', async () => {
   const { events, log } = collector()
   const filler = Array.from({ length: 18 }, () => ({
     type: 'image',
@@ -95,7 +94,7 @@ test('张数护栏：消息里已有 18 张时不切，避免超过 20 张上限
   assert.equal(events[0].reason, 'batch-would-exceed')
 })
 
-test('maxSlices 护栏：超过配置上限时透传', { skip: !existsSync(SAMPLE) }, async () => {
+test('maxSlices 护栏：超过配置上限时透传', async () => {
   const { events, log } = collector()
   const part = { type: 'image', mediaType: 'image/jpeg', data: sampleB64 }
   const out = await expandContent([part], { maxSlices: 2 }, log)

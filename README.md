@@ -6,8 +6,8 @@
 
 `dsh-longshot` splits over-long screenshots into DSH-acceptable slices before prompt admission.
 Pure JS (`jpeg-js` + `pngjs`), overlapping slices avoid cutting a line of text; no native dependencies.
-Install: `dsh plugin add github:xinming-chenniang/dsh-longshot` (not published to npm).
-Tests: `node --test` (28). Limits: JPEG/PNG only, width ≤ 8192, max 18 slices per message.
+Install: `dsh plugin add dsh-longshot`. Tests: `node --test` (28).
+Limits: JPEG/PNG only, width ≤ 8192, max 18 slices per message.
 
 ## 它解决什么
 
@@ -53,15 +53,24 @@ DSH 的图片准入（`@deepseek-ai/dsh-attachment-local`）有三条硬限制�
 
 ## 安装
 
-### 方式一：GitHub 源（推荐）
+### 方式一：npm（推荐）
+
+```sh
+dsh plugin add dsh-longshot
+```
+
+`dsh plugin add` 接受包名、Git 地址、tarball 或本地绝对路径；装完在 profile 的
+`dsh.profile.bundles` 里应出现 `dsh-longshot`。
+
+### 方式二：GitHub 源
 
 ```sh
 dsh plugin add github:xinming-chenniang/dsh-longshot
 ```
 
-或从 Release 资产 `dsh-longshot-0.1.0.tgz` 安装。npm 上未发布（`private:true`）。
+适合从源码装或固定到某个提交。Release 资产 `dsh-longshot-0.1.0.tgz` 也可以同样方式安装。
 
-### 方式二：本地源码（开发）
+### 方式三：本地源码（开发）
 
 ```sh
 cd dsh-longshot
@@ -133,7 +142,8 @@ pnpm install          # 只装 jpeg-js + pngjs，纯 JS，无编译
 
 | DSH 版本 | 结果 |
 |---|---|
-| `0.2.1-rc.2` | 已测：host entry active；`node --test` 28/28；未在其它版本真机拖图 |
+| `0.2.1-rc.5` | 2026-10-31 核实：`ctx.attachments.admitPromptContent()` 仍在 `AttachmentStore` 原型上、签名未变（解 `app.asar` 只读核实）；`node --test` 28/28。**未在本版真机拖图** |
+| `0.2.1-rc.2` | 已测：host entry active；`node --test` 28/28 |
 | 其他版本 | 未测；`package.json` 只声明 `engines.dsh >= 0.2.0-rc.2` |
 
 ## 已知限制
@@ -158,7 +168,8 @@ PNG 往返、透传、张数护栏、故障降级。
 —— `get` 会把 `this` 换成 shadow ctx，`set` 落到 shadow 而不落实例 —— 补丁必须在这两条约束下
 仍然生效、且 `dispose` 后能还原。这是本插件最容易错的地方，所以单独锁住。
 
-`test/codec.test.mjs` 里依赖本机真实截图的用例在文件缺失时会自动 skip，不会在别的机器上假红。
+`test/codec.test.mjs` 等端到端用例不依赖本机文件：长图夹具由 `test-fixtures/longshot.mjs`
+首次运行时生成（同尺寸 `1280×12719`），CI 与别人的机器上都是 28 条全跑。
 
 > **另做过一次真 Cordis 验证**（一次性探针，不随包发布）：从 DSH 的 `app.asar` 取出
 > `@deepseek-ai/cordis`，建真 `Context` + 一个假 `attachments` Service，装插件后调用

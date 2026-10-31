@@ -1,20 +1,17 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { existsSync, readFileSync } from 'node:fs'
 import { PNG } from 'pngjs'
 import { probe, sliceImage } from '../lib/codec.js'
 import { planSlices } from '../lib/slice.js'
+import { sampleLongJpeg } from '../test-fixtures/longshot.mjs'
 
-/** 本机真实长截图；不在时跳过，避免测试在别的机器上假红。 */
-const SAMPLE = 'sample-1280x12719.jpg'
-
-test('probe 读完头部就能拿到 1280x12719', { skip: !existsSync(SAMPLE) }, () => {
-  const head = probe(readFileSync(SAMPLE))
+test('probe 读完头部就能拿到 1280x12719', () => {
+  const head = probe(sampleLongJpeg())
   assert.deepEqual(head, { format: 'jpeg', width: 1280, height: 12719 })
 })
 
-test('真实长截图切成 4 片，尺寸与字节都合规', { skip: !existsSync(SAMPLE) }, () => {
-  const bytes = readFileSync(SAMPLE)
+test('真实长截图切成 4 片，尺寸与字节都合规', () => {
+  const bytes = sampleLongJpeg()
   const slices = sliceImage(bytes, planSlices(1280, 12719))
   assert.equal(slices.length, 4)
   for (const s of slices) {
