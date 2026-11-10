@@ -6,7 +6,7 @@
 
 `dsh-longshot` splits over-long screenshots into DSH-acceptable slices before prompt admission.
 Pure JS (`jpeg-js` + `pngjs`), overlapping slices avoid cutting a line of text; no native dependencies.
-Install: `dsh plugin add github:xinming-chenniang/dsh-longshot` (not published to npm).
+Install: `dsh plugin add dsh-longshot` (npm) — or `dsh plugin add github:xinming-chenniang/dsh-longshot`.
 Tests: `node --test` (28). Limits: JPEG/PNG only, width ≤ 8192, max 18 slices per message.
 
 ## 它解决什么
@@ -53,7 +53,13 @@ DSH 的图片准入（`@deepseek-ai/dsh-attachment-local`）有三条硬限制�
 
 ## 安装
 
-### 方式一：GitHub 源（推荐）
+### 方式一：npm（推荐）
+
+```sh
+dsh plugin add dsh-longshot
+```
+
+### 方式二：GitHub 源
 
 ```sh
 dsh plugin add github:xinming-chenniang/dsh-longshot
@@ -62,10 +68,6 @@ dsh plugin add github:xinming-chenniang/dsh-longshot
 `dsh plugin add` 接受包名、Git 地址、tarball 或本地绝对路径。也可以从
 [Release 资产](https://github.com/xinming-chenniang/dsh-longshot/releases) 的
 `dsh-longshot-0.1.1.tgz` 安装。
-
-### 方式二：npm
-
-暂未发布到 npm（`dsh plugin add dsh-longshot` 目前不可用）。
 
 ### 方式三：本地源码（开发）
 

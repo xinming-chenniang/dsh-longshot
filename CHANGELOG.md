@@ -4,7 +4,9 @@
 
 ## 0.1.1 — 2026-10-31
 
-- 仓库转公开：GitHub Release（含 tarball 资产）可用；npm 暂未发布。
+- **2026-11-10：首次发布到 npm**（`dsh-longshot@0.1.1`），`dsh plugin add dsh-longshot` 可用；
+  README 安装段、`AGENTS.md` 发布规则与 `plugins/RELEASING.md` 的策略表同步改（此前只走 GitHub Release）。
+- 仓库转公开：GitHub Release（含 tarball 资产）可用。
 - 测试夹具自包含：`test-fixtures/longshot.mjs` 首次运行时生成 1280×12719 长图，不再依赖作者本机截图路径；
   此前在别人的机器与 CI 上会 skip 的 8 条端到端用例现在全跑（`node --test` 28/28）。
 - 源码注释与测试中的本机绝对路径已移除；`AGENTS.md` 改写为公开版开发指引。
