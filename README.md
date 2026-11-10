@@ -2,12 +2,16 @@
 
 拖入超长截图时自动切成多张，让 DSH 不再拒收。
 
+> 如果对您有帮助，请点个 ⭐ Star。有问题欢迎开 [Issue](https://github.com/xinming-chenniang/dsh-longshot/issues)，或者直接给我发邮件 xinming-chenniang@qq.com。
+
 ## English
 
 `dsh-longshot` splits over-long screenshots into DSH-acceptable slices before prompt admission.
 Pure JS (`jpeg-js` + `pngjs`), overlapping slices avoid cutting a line of text; no native dependencies.
 Install: `dsh plugin add dsh-longshot` (npm) — or `dsh plugin add github:xinming-chenniang/dsh-longshot`.
 Tests: `node --test` (28). Limits: JPEG/PNG only, width ≤ 8192, max 18 slices per message.
+
+> If it helps, a ⭐ star is appreciated. Bugs and requests: [open an issue](https://github.com/xinming-chenniang/dsh-longshot/issues) or email xinming-chenniang@qq.com.
 
 ## 它解决什么
 
